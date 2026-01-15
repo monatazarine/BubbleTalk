@@ -11,7 +11,7 @@ const io = new Server(server);
 let usersCount = 0;
 
 // assign usernames and colors
-const colors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6'];
+const colors = ['#19E62D', '#e6194b', '#00D493', '#4363d8', '#F47011', '#911eb4', '#19D3D3', '#E50498'];
 
 io.on('connection', (socket) => {
   usersCount++;

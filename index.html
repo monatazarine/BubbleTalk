@@ -2,61 +2,111 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Socket.IO Chat</title>
+  <title>BubbleTalk</title>
   <style>
-    body {
-      margin: 0; padding-bottom: 4rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: cadetblue;
-    }
+   body {
+  margin: 0;
+  padding-top: 3.5rem;
+  padding-bottom: 4rem;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  background-attachment: fixed;
 
-    #messages {
-      list-style: none; margin: 0; padding: 0;
-      padding-bottom: 4rem; max-height: calc(100vh - 4rem);
-      overflow-y: auto; scroll-behavior: smooth;
-      display: flex; flex-direction: column;
-    }
+}
 
-    .message-bubble {
-      padding: 0.5rem 1rem;
-      border-radius: 15px;
-      margin: 0.25rem 0.5rem;
-      max-width: 70%;
-      word-wrap: break-word;
-      display: inline-block;
-    }
+#header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3.5rem;
+  background: rgba(0,0,0,0.25);
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
 
-    .system {
-      background: #fff3b0;
-      color: #333;
-      text-align: center;
-      align-self: center;
-      max-width: 90%;
-    }
+#messages {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 7.5rem);
+}
 
-    #typing { font-style: italic; padding-left: 1rem; color: #222; height: 1.2rem; }
+.message-bubble {
+  padding: 0.6rem 0.9rem;
+  border-radius: 18px;
+  max-width: 70%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  animation: pop 0.15s ease-out;
+}
 
-    #form {
-      background: rgba(0,0,0,0.15);
-      padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0;
-      display: flex; height: 3rem; box-sizing: border-box;
-      backdrop-filter: blur(10px);
-    }
+@keyframes pop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 
-    #input {
-      border: none; padding: 0 1rem; flex-grow: 1;
-      border-radius: 2rem; margin: 0.25rem; min-height: 2rem; max-height: 4rem;
-    }
+.mine {
+  align-self: flex-end;
+  border-bottom-right-radius: 5px;
+}
 
-    #input:focus { outline: none; }
-    #form > button {
-      background: #333; border: none; padding: 0 1rem;
-      margin: 0.25rem; border-radius: 3px; color: #fff;
-    }
-    #form > button:hover { background-color: #555; cursor: pointer; }
+.other {
+  align-self: flex-start;
+  border-bottom-left-radius: 5px;
+}
+
+.system {
+  align-self: center;
+  background: #fff3cd;
+  color: #333;
+  font-size: 0.85rem;
+}
+
+.username {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+#form {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  background: rgba(0,0,0,0.2);
+  padding: 0.4rem;
+  backdrop-filter: blur(10px);
+}
+
+#input {
+  flex: 1;
+  border: none;
+  border-radius: 20px;
+  padding: 0 1rem;
+  font-size: 1rem;
+}
+
+#input:focus { outline: none; }
+
+#form button {
+  background: #222;
+  color: white;
+  border: none;
+  margin-left: 0.4rem;
+  padding: 0 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
   </style>
 </head>
 <body>
+  <header id="header">💬 BubbleTalk</header>
   <ul id="messages"></ul>
   <div id="typing"></div>
   <form id="form" action="">
