@@ -1,0 +1,9 @@
+{
+  "name": "bubbletalk-monorepo",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "package/common"
+  ]
+}
