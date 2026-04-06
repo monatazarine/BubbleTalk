@@ -4,8 +4,8 @@ import { Navigate ,Outlet} from"react-router-dom";
 
 
 const useAuth = () => {
-   const { user } = useContext(AccountContext);
-   return user && user.loggedIn;};
+   const { account } = useContext(AccountContext);
+   return account && account.loggedIn;};
 
 const PrivateRoute = () => {
   const isAuth = useAuth();

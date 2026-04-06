@@ -5,7 +5,7 @@ export const AccountContext = createContext();
 
 
 const UserContext = ({ children }) => {
-             const [account, setAccount] = useState({loggedInc : null});
+             const [account, setAccount] = useState({loggedIn : null});
              const navigate = useNavigate();
              useEffect(() => {
                  fetch("http://localhost:4000/auth/login", {
@@ -25,8 +25,10 @@ const UserContext = ({ children }) => {
                           if(!data){
                          setAccount({loggedIn : false})
                          return;}
-                         navigate('/home');  
                          setAccount({...data});
+                          if(data.loggedIn){
+                              navigate('/home');
+                          }
                               })
              }, []
 )
