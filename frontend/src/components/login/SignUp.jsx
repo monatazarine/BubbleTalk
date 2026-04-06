@@ -11,7 +11,7 @@ import { AccountContext } from "../AccountContext";
 
 const SignUp = () => {
     const [error , setErr] = useState(null);
-    const {setUser} = useContext(AccountContext);
+    const {setAccount} = useContext(AccountContext);
     const navigate = useNavigate();
     return (
     <Formik  initialValues ={{username: '', password: ''}}
@@ -38,7 +38,7 @@ const SignUp = () => {
                                        })
                                        .then(data => {
                                          if (!data ) return;
-                                         setUser(data);
+                                         setAccount(data);
 
                                          if(data.status ){
                                             setErr(data.message);

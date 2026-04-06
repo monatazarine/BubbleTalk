@@ -33,12 +33,12 @@ router
                     res.json({loggedIn:true, username:req.body.username});              
                     } else {
                     //wrong password
-                    res.json({loggedIn:true, status:"Wrong username or password"})
+                    res.json({loggedIn:false, status:"Wrong username or password"})
                     console.log("not good")
 }       
                     } else {
                     //user does not exist
-                    res.json({loggedIn:false, status:"Wrong username or password"})
+                    res.json({loggedIn:false, status:true,message:"Wrong username or password"})
              }
 
 });
