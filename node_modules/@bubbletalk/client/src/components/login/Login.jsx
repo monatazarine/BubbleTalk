@@ -9,7 +9,7 @@ import { AccountContext } from "../AccountContext";
 
 const Login = () => {
    const [error , setErr] = useState(null);
-   const { setAccount } = useCon       text(AccountContext);
+   const { setAccount } = useContext(AccountContext);
    const navigate = useNavigate();
    // const formik = useFormik({
    //          initialValues: {username: '', password: ''},
