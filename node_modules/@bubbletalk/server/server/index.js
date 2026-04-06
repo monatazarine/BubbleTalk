@@ -3,12 +3,14 @@ const { Server } = require('socket.io');
 const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
-const PORT = process.env.PORT || 4000;
 const authRouter = require('./router/authRouter');  
 const session = require('express-session');
+const Redis = require('ioredis');
+const { RedisStore } = require("connect-redis");
 
-require('dotenv').config()
+require('dotenv').config();
 
+const PORT = process.env.PORT || 4000;
 
 //create a server
 const sever = require('http').createServer(app);
@@ -20,7 +22,10 @@ const io = new Server(sever, {
     }
 });
 //create a redis client
-
+const redisClient = new Redis(); 
+redisClient.on("error", (err) => {
+    console.error("Redis error: ", err.message);
+});
 //middleware
 app.use(helmet());
 app.use(cors({
@@ -30,14 +35,15 @@ app.use(cors({
 app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    credentials: true,
     resave: false,
     name: 'sid',
+    store: new RedisStore({ client: redisClient }),
     saveUninitialized: true,
     cookie: { 
        secure: process.env.ENVIRONMENT === 'production',
        httpOnly: true,
        maxAge: 1000 * 60 * 60 * 24, //1 day    
+
        sameSite: process.env.ENVIRONMENT === 'production' ? 'none' : 'lax',}
 }));
 app.get('/', (req, res) => {
