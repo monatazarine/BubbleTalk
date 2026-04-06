@@ -37,7 +37,7 @@ app.use(session({
     cookie: { 
        secure: process.env.ENVIRONMENT === 'production',
        httpOnly: true,
-       expire: 1000 * 60 * 60 * 24, //1 day    
+       maxAge: 1000 * 60 * 60 * 24, //1 day    
        sameSite: process.env.ENVIRONMENT === 'production' ? 'none' : 'lax',}
 }));
 app.get('/', (req, res) => {
