@@ -5,5 +5,10 @@
     "frontend",
     "backend",
     "package/common"
-  ]
+  ],
+  "dependencies": {
+    "connect-redis": "^9.0.0",
+    "express-session": "^1.19.0",
+    "ioredis": "^5.10.1"
+  }
 }
