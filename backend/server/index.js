@@ -5,15 +5,15 @@ const { Server } = require('socket.io');
 const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
-const Redis = require('redis');
+const Redis = require('ioredis');
 const authRouter = require('./routes/authRouter');  
 const session = require('express-session');
 
 //create a server
 const server = require('http').createServer(app);
 
-const  RedisStore  = require("connect-redis");
-const redisClient = Redis.createClient();
+const { RedisStore}  = require("connect-redis");
+const redisClient = new Redis();
 
 
 
@@ -42,7 +42,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use(session({
-            secret: process.env.COOKIE_SECRET,
+            secret: process.env.SESSION_SECRET,
             credentials: true,
             resave: false,
             name: 'sid',
