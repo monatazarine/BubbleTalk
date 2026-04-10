@@ -2,7 +2,7 @@ const pool = require("../db");
 const bcrypt = require('bcrypt');
 
 // Middleware to check login status
-module.exports.handleLogin = (req, res) => {
+module.exports.handleLogin = (req, res) => {        
     try {
         if (req.session && req.session.user && req.session.user.username) {
             res.json({ loggedIn: true, username: req.session.user.username });

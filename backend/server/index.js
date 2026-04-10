@@ -5,7 +5,7 @@ const { Server } = require('socket.io');
 const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
-const Redis = require('ioredis');
+const redisClient = require("./redis");
 const authRouter = require('./routes/authRouter');  
 const session = require('express-session');
 
@@ -13,7 +13,6 @@ const session = require('express-session');
 const server = require('http').createServer(app);
 
 const { RedisStore}  = require("connect-redis");
-const redisClient = new Redis();
 
 
 
@@ -29,9 +28,14 @@ const io = new Server(server, {
 //users won't be logged out aut if the server restart
 
 
-redisClient.on("error", (err) => {
-    console.error("Redis error: ", err.message);
+redisClient.on('error', (err) => {
+  console.log('Redis error:', err);
 });
+const store = new RedisStore({
+       host: 'localhost',
+        port: 6379,
+        client: redisClient});
+
 //middleware
 app.use(helmet());
 app.use(cors({
@@ -42,11 +46,11 @@ app.use(cors({
 app.use(express.json());
 
 app.use(session({
-            secret: process.env.SESSION_SECRET,
+            store: store,
             credentials: true,
+            secret: process.env.SESSION_SECRET,
             resave: false,
             name: 'sid',
-            store: new RedisStore({ client: redisClient }),
             saveUninitialized: false,
             cookie: { 
                 secure: process.env.ENVIRONMENT === 'production'? "true" : "auto",
