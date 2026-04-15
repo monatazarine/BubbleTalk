@@ -6,7 +6,7 @@ import { Text } from "@chakra-ui/react";
 import PrivateRoute from "./PrivateRoutes.jsx";
 import { useContext } from "react";
 import  { AccountContext } from "./AccountContext";
-import Home from "./Home/home.jsx";
+import Home from "./Login/Home.jsx";
 const Views = () => {
     const {account} = useContext(AccountContext);
 

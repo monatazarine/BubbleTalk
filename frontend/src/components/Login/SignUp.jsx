@@ -1,7 +1,7 @@
 
 import {VStack, ButtonGroup,Button, Heading} from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import TextField from "./TextField";
+import TextField from "../TextField";
 import { Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import {ArrowBackIcon} from "@chakra-ui/icons";
